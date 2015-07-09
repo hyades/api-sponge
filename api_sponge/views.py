@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+import pprint
 
 
 def test_get(request):
@@ -16,6 +17,10 @@ def test_get(request):
     resp['headers']['HTTP_HOST'] = request.META['HTTP_HOST']
     resp['headers']['QUERY_STRING'] = request.META['QUERY_STRING']
     resp['headers']['HTTP_USER_AGENT'] = request.META['HTTP_USER_AGENT']
+    if 'HTTP_AUTHORIZATION' in resp['headers']:
+        resp['headers']['HTTP_AUTHORIZATION'] = request.META[
+            'HTTP_AUTHORIZATION']
+    pprint.pprint(resp, width=10)
     return JsonResponse(resp)
 
 
@@ -34,5 +39,9 @@ def test_post(request):
     resp['headers']['HTTP_HOST'] = request.META['HTTP_HOST']
     resp['headers']['QUERY_STRING'] = request.META['QUERY_STRING']
     resp['headers']['HTTP_USER_AGENT'] = request.META['HTTP_USER_AGENT']
+    if 'HTTP_AUTHORIZATION' in resp['headers']:
+        resp['headers']['HTTP_AUTHORIZATION'] = request.META[
+            'HTTP_AUTHORIZATION']
+    pprint.pprint(resp, width=10)
 
     return JsonResponse(resp)
